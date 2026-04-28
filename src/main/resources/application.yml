@@ -16,3 +16,6 @@ spring:
   #   properties:
   #     hibernate:
   #       format_sql: true
+cloud:
+  aws:
+    region: ap-northeast-2
