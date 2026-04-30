@@ -18,6 +18,6 @@ spring:
   #       format_sql: true
 cloud:
   aws:
-    region: ap-northeast-2
+    region: us-east-1
     s3:
       bucket: ${S3_BUCKET_NAME:awslab2026-bucket-test}
