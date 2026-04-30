@@ -73,7 +73,7 @@ metadata:
   name: backend-service
   namespace: sample-app
 spec:
-  type: ClusterIP
+  type: IP
   selector:
     app: backend
   ports:
