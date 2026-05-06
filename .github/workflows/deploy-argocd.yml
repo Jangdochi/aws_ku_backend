@@ -51,20 +51,20 @@ jobs:
       - name: Checkout Infra Repository
         uses: actions/checkout@v3
         with:
-          repository: 사용자계정/인프라저장소명 # 👈 사용자님의 인프라 저장소
+          repository: Jangdochi/aws_ku_infra # 👈 사용자님의 인프라 저장소
           token: ${{ secrets.ARGOCD_GITHUB_TOKEN }}   # 인프라 저장소 푸시 권한이 있는 PAT
           path: infra-repo 
       - name: Update Manifest
         run: |
           cd infra-repo
           # manifests/backend/deployment.yaml 내의 image: 부분을 새 이미지 태그로 변경
-          sed -i "s|image:.*|image: ${{ steps.build-image.outputs.image }}|g" manifests/backend/deployment.yaml
+          sed -i "s|image:.*|image: ${{ secrets.ECR_BACKEND_URI }}:${{ github.sha }}|g" manifests/backend/backend.yaml
       - name: Commit and Push Changes
         run: |
           cd infra-repo
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
-          git add manifests/backend/deployment.yaml
+          git add manifests/backend/backend.yaml
           
           # 변경사항이 있는 경우에만 커밋 및 푸시
           if ! git diff-index --quiet HEAD; then
